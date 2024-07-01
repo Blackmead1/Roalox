@@ -1,0 +1,34 @@
+-- Put this script in a Script (ServerScriptService)
+
+-- Function to generate a random direction vector
+local function randomDirection()
+    local randomX = math.random(-100, 100)  -- Random X component
+    local randomY = math.random(50, 150)    -- Random Y component (positive for upward)
+    local randomZ = math.random(-100, 100)  -- Random Z component
+
+    return Vector3.new(randomX, randomY, randomZ)
+end
+
+-- Function to fling a player's character
+local function flingPlayer(player)
+    local character = player.Character
+    if character then
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local flingDirection = randomDirection()  -- Get random fling direction
+
+            -- Apply fling force
+            humanoidRootPart.Velocity = flingDirection
+        end
+    end
+end
+
+-- Function to fling all players in the game
+local function flingAllPlayers()
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        flingPlayer(player)
+    end
+end
+
+-- Call the function when the script runs
+flingAllPlayers()
